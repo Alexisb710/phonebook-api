@@ -1,5 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
+
 const app = express();
 const PORT = 8000;
 
@@ -37,8 +38,18 @@ const generateId = () => {
 // can use with app.use(express.json())
 
 // MIDDLEWARE //////////
+// custom morgan token
+morgan.token("data", function (req) {
+  if (req.method === "POST") return JSON.stringify(req.body);
+  return "";
+});
 app.use(express.json());
 app.use(morgan("tiny"));
+// app.use(morgan(":data"));
+// combine the output of tiny with data so it can show in one line:
+// app.use(
+//   morgan(":method :url :status :res[content-length] - :response-time ms :data")
+// );
 
 ///////////////////////
 
