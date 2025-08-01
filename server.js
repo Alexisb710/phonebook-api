@@ -24,7 +24,9 @@ let phonebook = [
     number: "39-23-6423122",
   },
 ];
-
+/*****************
+      GET
+*****************/
 app.get("/api/persons", (req, res) => {
   res.json(phonebook);
 });
@@ -49,6 +51,17 @@ app.get("/info", (req, res) => {
   res.send(
     `Phonebook has info for ${phonebook.length} people<br> ${new Date()}`
   );
+});
+
+/*****************
+    DELETE
+*****************/
+app.delete("/api/persons/:id", (req, res) => {
+  const id = req.params.id;
+  phonebook = phonebook.filter((person) => person.id !== id);
+
+  // If the deletion succeeded, all we should return is a 204 status code
+  res.status(204).end();
 });
 
 app.listen(process.env.PORT || PORT, () =>
