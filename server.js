@@ -33,7 +33,13 @@ app.get("/api/persons", (req, res) => {
 app.get("/api/persons/:id", (req, res) => {
   const id = req.params.id;
   const person = phonebook.find((person) => person.id === id);
-  res.json(person);
+
+  // If an entry for the given id is not found, the server has to respond with a status 404
+  if (person) {
+    res.json(person);
+  } else {
+    res.status(404).end();
+  }
 });
 
 app.get("/info", (req, res) => {
