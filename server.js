@@ -29,6 +29,13 @@ app.get("/api/persons", (req, res) => {
   res.json(phonebook);
 });
 
+// Getting a single phonebook entry
+app.get("/api/persons/:id", (req, res) => {
+  const id = req.params.id;
+  const person = phonebook.find((person) => person.id === id);
+  res.json(person);
+});
+
 app.get("/info", (req, res) => {
   // using <br> to define a line break Express will set the default header
   // to text/html. If you want to use the newline char, then you need to
