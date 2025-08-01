@@ -1,4 +1,5 @@
 const express = require("express");
+const morgan = require("morgan");
 const app = express();
 const PORT = 8000;
 
@@ -35,9 +36,11 @@ const generateId = () => {
 // to access the data that is sent, we need the Express json-parser that we
 // can use with app.use(express.json())
 
-// Middleware
+// MIDDLEWARE //////////
 app.use(express.json());
-//
+app.use(morgan("tiny"));
+
+///////////////////////
 
 app.post("/api/persons", (req, res) => {
   // let body = req.body;
