@@ -40,18 +40,38 @@ app.use(express.json());
 //
 
 app.post("/api/persons", (req, res) => {
-  let body = req.body;
-  //check if empty
-  if (!body.name) {
+  // let body = req.body;
+  let { name, number } = req.body;
+  // optional chaining to trim whitespace
+  name = name?.trim();
+  number = number?.trim();
+
+  // check if name property is missing
+  if (!name) {
     return res.status(400).json({
       error: "name missing",
+    });
+  }
+  // check if number property is missing
+  if (!number) {
+    return res.status(400).json({
+      error: "number missing",
+    });
+  }
+
+  // check if duplicate names
+  if (
+    phonebook.find((person) => person.name.toLowerCase() === name.toLowerCase())
+  ) {
+    return res.status(400).json({
+      error: "name must be unique",
     });
   }
 
   const person = {
     id: generateId(), // the function can produce duplicates eventually. Solution in future
-    name: body.name,
-    number: body.number,
+    name,
+    number,
   };
 
   phonebook = phonebook.concat(person);
