@@ -24,8 +24,43 @@ let phonebook = [
     number: "39-23-6423122",
   },
 ];
+
+const generateId = () => {
+  return String(Math.floor(Math.random() * 1000 + 5));
+};
+
 /*****************
-      GET
+    POST
+*****************/
+// to access the data that is sent, we need the Express json-parser that we
+// can use with app.use(express.json())
+
+// Middleware
+app.use(express.json());
+//
+
+app.post("/api/persons", (req, res) => {
+  let body = req.body;
+  //check if empty
+  if (!body.name) {
+    return res.status(400).json({
+      error: "name missing",
+    });
+  }
+
+  const person = {
+    id: generateId(), // the function can produce duplicates eventually. Solution in future
+    name: body.name,
+    number: body.number,
+  };
+
+  phonebook = phonebook.concat(person);
+
+  res.json(person);
+});
+
+/*****************
+    GET
 *****************/
 app.get("/api/persons", (req, res) => {
   res.json(phonebook);
