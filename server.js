@@ -98,9 +98,9 @@ app.post("/api/persons", (req, res) => {
 *****************/
 app.get("/", (req, res) => {
   res.send(`Hello, to use this phonebook api use the following urls:<br>
-            /api/persons -> to show the list of all persons in the phonebook<br>
-            /api/persons/:id -> to show information about a specific person<br>
-            /info -> to get general information about the phonebook api`);
+            <strong>/api/persons</strong> -> to show the list of all persons in the phonebook<br>
+            <strong>/api/persons/:id</strong> -> to show information about a specific person<br>
+            <strong>/info</strong> -> to get general information about the phonebook api`);
 });
 
 app.get("/api/persons", (req, res) => {
@@ -122,7 +122,7 @@ app.get("/api/persons/:id", (req, res) => {
 
 app.get("/info", (req, res) => {
   // using <br> to define a line break Express will set the default header
-  // to text/html. If you want to use the newline char, then you need to
+  // to 'text/html'. If you want to use the newline char, then you need to
   // set the Content-Type to text/plain with res.set('Content-Type', 'text/plain')
   res.send(
     `Phonebook has info for ${phonebook.length} people<br> ${new Date()}`
