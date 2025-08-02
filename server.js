@@ -97,7 +97,10 @@ app.post("/api/persons", (req, res) => {
     GET
 *****************/
 app.get("/", (req, res) => {
-  res.send("Hello");
+  res.send(`Hello, to use this phonebook api use the following urls:
+            /api/persons -> to show the list of all persons in the phonebook
+            /api/persons/:id -> to show information about a specific person
+            /info -> to get general information about the phonebook api`);
 });
 
 app.get("/api/persons", (req, res) => {
