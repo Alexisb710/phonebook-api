@@ -96,6 +96,10 @@ app.post("/api/persons", (req, res) => {
 /*****************
     GET
 *****************/
+app.get("/", (req, res) => {
+  res.send("Hello");
+});
+
 app.get("/api/persons", (req, res) => {
   res.json(phonebook);
 });
