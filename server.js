@@ -101,7 +101,8 @@ app.post("/api/persons", (req, res) => {
 app.get("/", (req, res) => {
   res.send(`<h2>Hello, to use this phonebook api use/append the following to the URL:</h2>
             <strong>/api/persons</strong> -> to show the list of all persons in the phonebook<br>
-            <strong>/api/persons/:id</strong> -> to show information about a specific person<br>
+            <strong>/api/persons/:id</strong> -> to show information about a specific person by id<br>
+            <strong>/api/persons/:name</strong> -> to show information about a specific person by name<br>
             <strong>/info</strong> -> to get general information about the phonebook api`);
 });
 
@@ -109,12 +110,25 @@ app.get("/api/persons", (req, res) => {
   res.json(phonebook);
 });
 
-// Getting a single phonebook entry
+// Getting a single phonebook entry by id
 app.get("/api/persons/:id", (req, res) => {
   const id = req.params.id;
   const person = phonebook.find((person) => person.id === id);
 
   // If an entry for the given id is not found, the server has to respond with a status 404
+  if (person) {
+    res.json(person);
+  } else {
+    res.status(404).end();
+  }
+});
+
+// Getting a single phonebook entry by name
+app.get("/api/persons/:name", (req, res) => {
+  const name = req.params.name;
+  const person = phonebook.find((person) => person.name === name);
+
+  // If an entry for the given name is not found, the server has to respond with a status 404
   if (person) {
     res.json(person);
   } else {
