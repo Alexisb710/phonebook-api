@@ -102,7 +102,7 @@ app.get("/", (req, res) => {
   res.send(`<h2>Hello, to use this phonebook api use/append the following to the URL:</h2>
             <strong>/api/persons</strong> -> to show the list of all persons in the phonebook<br>
             <strong>/api/persons/:id</strong> -> to show information about a specific person by id<br>
-            <strong>/api/persons?name=<name></strong> -> to show information about a specific person by name<br>
+            <strong>/api/persons?name=...</strong> -> to show information about a specific person by name<br>
             <strong>/info</strong> -> to get general information about the phonebook api`);
 });
 
