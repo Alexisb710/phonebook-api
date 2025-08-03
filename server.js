@@ -102,12 +102,30 @@ app.get("/", (req, res) => {
   res.send(`<h2>Hello, to use this phonebook api use/append the following to the URL:</h2>
             <strong>/api/persons</strong> -> to show the list of all persons in the phonebook<br>
             <strong>/api/persons/:id</strong> -> to show information about a specific person by id<br>
-            <strong>/api/persons/:name</strong> -> to show information about a specific person by name<br>
+            <strong>/api/persons?name=<name></strong> -> to show information about a specific person by name<br>
             <strong>/info</strong> -> to get general information about the phonebook api`);
 });
 
 app.get("/api/persons", (req, res) => {
-  res.json(phonebook);
+  // res.json(phonebook);
+  // allow for query parameters if user wants to look by name
+  const queryName = req.query.name;
+
+  // if ?name=... is not provided, return all entries in phonebook
+  if (!queryName) {
+    return res.json(phonebook);
+  }
+
+  // if name is provided (through a query string), search by case-insensitive match
+  const person = phonebook.find(
+    (person) => person.name.toLowerCase() === queryName.toLowerCase()
+  );
+
+  if (person) {
+    res.json(person);
+  } else {
+    res.status(404).json({ error: "Person not found" });
+  }
 });
 
 // Getting a single phonebook entry by id
@@ -116,21 +134,6 @@ app.get("/api/persons/:id", (req, res) => {
   const person = phonebook.find((person) => person.id === id);
 
   // If an entry for the given id is not found, the server has to respond with a status 404
-  if (person) {
-    res.json(person);
-  } else {
-    res.status(404).end();
-  }
-});
-
-// Getting a single phonebook entry by name
-app.get("/api/persons/:name", (req, res) => {
-  const personName = decodeURIComponent(req.params.name).toLowerCase();
-  const person = phonebook.find(
-    (person) => person.name.toLowerCase() === personName
-  );
-
-  // If an entry for the given name is not found, the server has to respond with a status 404
   if (person) {
     res.json(person);
   } else {
