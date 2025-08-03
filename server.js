@@ -125,8 +125,10 @@ app.get("/api/persons/:id", (req, res) => {
 
 // Getting a single phonebook entry by name
 app.get("/api/persons/:name", (req, res) => {
-  const name = req.params.name.toLowerCase();
-  const person = phonebook.find((person) => person.name.toLowerCase() === name);
+  const personName = req.params.name.toLowerCase();
+  const person = phonebook.find(
+    (person) => person.name.toLowerCase() === personName
+  );
 
   // If an entry for the given name is not found, the server has to respond with a status 404
   if (person) {
