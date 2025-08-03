@@ -1,5 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
+const cors = require("cors");
 
 const app = express();
 const PORT = 8000;
@@ -45,6 +46,7 @@ morgan.token("data", function (req) {
 });
 app.use(express.json());
 app.use(morgan("tiny"));
+app.use(cors());
 // app.use(morgan(":data"));
 // combine the output of tiny with data so it can show in one line:
 // app.use(
