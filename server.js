@@ -108,7 +108,7 @@ app.get("/", (req, res) => {
 
 app.get("/api/persons", (req, res) => {
   // res.json(phonebook);
-  // allow for query parameters if user wants to look by name
+  // allow for query parameters if user wants to look by name (i.e, person?name=...)
   const queryName = req.query.name;
 
   // if ?name=... is not provided, return all entries in phonebook
